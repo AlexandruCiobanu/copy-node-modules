@@ -22,7 +22,7 @@ var copyNodeModule = require('copy-node-modules');
 * `srcDir`: source directory contains package.json file.
 * `dstDir`: destination directory to copy modules, the modules will copy to `dstDir/node_modules` directory.
 * `options`:
-  `devDependencies`: Boolean value, defaults to **false**, also copy development modules when it sets to **true**
+  * `devDependencies`: Boolean value, defaults to **false**, also copy development modules when it sets to **true**
 * `callback(err, results)`: A callback which is called when all copy tasks have finished or error occurs, `results` is an array contains copied modules, each item is an object as `{name: 'xxx', version: 'xxx'}`
 
 ## Examples
