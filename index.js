@@ -145,16 +145,24 @@ function copyNodeModules(srcDir, dstDir, opts, callback)
     if (!pkgContent)
         throw new Error('parse package.json in source directory fail');
 
-
+    
     // prepare root package list
     var rootPkgList = [];
-    for (var depPkgName in pkgContent.dependencies)
+    for (var depPkgName in pkgContent.dependencies){
+        if(g_opts.include && g_opts.include.length > 0 && g_opts.include.indexOf(depPkgName) == -1){
+            continue;
+        }
         rootPkgList.push({name: depPkgName, version: pkgContent.dependencies[depPkgName]});
+    }
 
     if (g_opts.devDependencies)
     {
-        for (var devDepPkgName in pkgContent.devDependencies)
+        for (var devDepPkgName in pkgContent.devDependencies){
+            if(g_opts.include && g_opts.include.length > 0 && g_opts.include.indexOf(depPkgName) == -1){
+                continue;
+            }
             rootPkgList.push({name: devDepPkgName, version: pkgContent.dependencies[devDepPkgName]});
+        }
     }
 
     async.map(rootPkgList, findPkgDeps, function(err, results) {
