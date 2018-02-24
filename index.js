@@ -108,13 +108,29 @@ function findPkgDeps(pkg, callback)
     callback(null, pkgs);
 }
 
+var excludedFolders = [
+	"build", 
+	"deps",
+	"doc",
+	"man",
+	"test",
+	"tst",
+	"example",
+	"examples"
+];
 
 function copyModules(pkgContent, callback)
 {
     var pkg = pkgContent.name;
     var srcDir = path.resolve(g_opts.srcDir, './node_modules/' + pkg);
     var dstDir = path.resolve(g_opts.dstDir, './node_modules/' + pkg);
-    var opts = {clobber: false};
+    var opts = {
+		clobber: false,
+		filter: function(name) {
+			return excludedFolders.indexOf(name.split(path.sep).pop()) == -1;
+		}
+
+	};
     mkdirp.sync(dstDir);
     ncp(srcDir, dstDir, opts, function(err) {
         callback(err);
