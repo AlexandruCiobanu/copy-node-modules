@@ -23,6 +23,7 @@ var copyNodeModule = require('copy-node-modules');
 * `dstDir`: destination directory to copy modules, the modules will copy to `dstDir/node_modules` directory.
 * `options`:
   * `devDependencies`: Boolean value, defaults to **false**, also copy development modules when it sets to **true**
+  * `include`: Array of package names to include in the copy process. By default all packages found in package.json are copied
 * `callback(err, results)`: A callback which is called when all copy tasks have finished or error occurs, `results` is an array contains copied modules, each item is an object as `{name: 'xxx', version: 'xxx'}`
 
 ## Examples
@@ -47,6 +48,7 @@ copyNodeModule(srcDir, dstDir, {devDependencies: false}, function(err, results) 
 * `dest_dir`: destination directory to copy modules, the modules will copy to `dstDir/node_modules` directory.
 * `--dev`: also copy modules listed in `devDependencies` field.
 * `-v|--verbose`: verbose mode.
+* `--include <packages>`: only copies the packages specified as a comma separated list. Applied for both dependencies and devDependencies
 
 ## License
 MIT
